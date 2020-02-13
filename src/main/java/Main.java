@@ -1,17 +1,26 @@
-import java.math.BigDecimal;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println(
-                new Account("PL61109010140000071219812870",
-                        "name4",
-                        "PLN",
-                        new BigDecimal(0),
-                        "2029-10-11"
-                ).toString()
-        );
+        try {
+            ObjectMapper mapper = new XmlMapper();
+            String filePath = "input.xml";
+            InputStream inputStream = new FileInputStream(filePath);
+            TypeReference<List<Account>> typeReference = new TypeReference<List<Account>>() {
+            };
+            List<Account> accounts = mapper.readValue(inputStream, typeReference);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
     }
 

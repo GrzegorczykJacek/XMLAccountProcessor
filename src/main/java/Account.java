@@ -13,7 +13,12 @@ public class Account implements Comparable<Account> {
     private BigDecimal balance;
     private String closingDate;
 
-    public int compareTo(Account account) {
+    public Account(){};
+
+    @Override
+    public int compareTo(Account o) {
+        if(this.getName().compareTo(o.getName()) < 0) return -1;
+        if(this.getName().compareTo(o.getName()) > 0) return 1;
         return 0;
     }
 }
