@@ -48,4 +48,10 @@
         <balance>1.00</balance>
         <closingDate>2010-01-01</closingDate>
     </account>
+    <account iban="PL33114020040000310246414252">
+        <name>prawidlowy</name>
+        <currency>PLN</currency>
+        <balance>1150.00</balance>
+        <closingDate>2025-01-01</closingDate>
+    </account>
 </accounts>
