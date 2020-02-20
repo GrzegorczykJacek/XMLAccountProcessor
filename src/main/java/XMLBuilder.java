@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -51,8 +52,10 @@ public class XMLBuilder {
             }
 
             // Saves xml to file
+            document.setXmlStandalone(true);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File(filepath));
 
