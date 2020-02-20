@@ -11,7 +11,7 @@ class AccountValidatorTest {
 
     @Test
     @DisplayName("IBAN validation test")
-    void validateIban() {
+    void shouldValidateIban() {
         // given
         List<Account> accounts = new ArrayList<>() {};
         Account account1 = new Account(
@@ -50,6 +50,30 @@ class AccountValidatorTest {
 
     //TODO
     // checkSumTest()
+    @Test
+    @DisplayName("Checksum Iban checking test")
+    void shouldCheckSumPLIban(){
+        // given
+        AccountValidator accountValidator = new AccountValidator();
+        Account account1 = new Account(
+                "PL61109010140000071219812870",
+                "name1",
+                "PLN",
+                new BigDecimal(0),
+                "2029-10-11"
+        );
+        Account account3 = new Account(
+                "PL33114020040000310246414252",
+                "prawidlowy",
+                "PLN",
+                new BigDecimal(-100),
+                "2039-05-15"
+        );
+        int expected1 = 1;
+        int expected87 = 87;
+        assertEquals(expected1, accountValidator.checkSumPLIban(account3.getIban()));
+        assertEquals(expected87, accountValidator.checkSumPLIban(account1.getIban()));
+    }
 
 
 }

@@ -25,7 +25,7 @@ public class AccountValidator {
     }
 
     // Validates checksum for PL IBAN
-    private int checkSumPLIban(String iban) {
+    int checkSumPLIban(String iban) {
         String tempIban = iban.substring(2,4);
         // Gets the firs 4 chars and moves them to the end of IBAN sequence, changing "P" to "25" and "L" to "21"
         String checkIban = iban.substring(4).concat("2521" + tempIban);
