@@ -48,8 +48,6 @@ class AccountValidatorTest {
 
     }
 
-    //TODO
-    // checkSumTest()
     @Test
     @DisplayName("Checksum Iban checking test")
     void shouldCheckSumPLIban(){
@@ -74,6 +72,92 @@ class AccountValidatorTest {
         assertEquals(expected1, accountValidator.checkSumPLIban(account3.getIban()));
         assertEquals(expected87, accountValidator.checkSumPLIban(account1.getIban()));
     }
+
+    @Test
+    @DisplayName("Date validation test")
+    void shouldValidateClosingDate(){
+        // given
+        AccountValidator accountValidator = new AccountValidator();
+        Account account1 = new Account(
+                "PL61109010140000071219812870",
+                "name1",
+                "PLN",
+                new BigDecimal(0),
+                "2010-10-11"
+        );
+        Account account2 = new Account(
+                "PL21109010140000071219812873",
+                "name5",
+                "PLN",
+                new BigDecimal(999.00),
+                "2050-01-01"
+        );
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(account1);
+        accounts.add(account2);
+        // when
+        accountValidator.validateClosingDate(accounts);
+        // then
+        assertEquals(1, accounts.size());
+    }
+
+    @Test
+    @DisplayName("Currency validation test")
+    void shouldValidateCurrency(){
+        // given
+        AccountValidator accountValidator = new AccountValidator();
+        Account account1 = new Account(
+                "PL61109010140000071219812870",
+                "name1",
+                "PLN",
+                new BigDecimal(0),
+                "2010-10-11"
+        );
+        Account account2 = new Account(
+                "PL21109010140000071219812873",
+                "name5",
+                "USD",
+                new BigDecimal(999.00),
+                "2050-01-01"
+        );
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(account1);
+        accounts.add(account2);
+        // when
+        accountValidator.validateCurrency(accounts);
+        // then
+        assertEquals(1, accounts.size());
+    }
+
+    @Test
+    @DisplayName("Balance validation test")
+    void shouldValidateBalance(){
+        // given
+        AccountValidator accountValidator = new AccountValidator();
+        Account account1 = new Account(
+                "PL61109010140000071219812870",
+                "name1",
+                "PLN",
+                new BigDecimal(-12),
+                "2010-10-11"
+        );
+        Account account2 = new Account(
+                "PL21109010140000071219812873",
+                "name5",
+                "USD",
+                new BigDecimal(999.00),
+                "2050-01-01"
+        );
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(account1);
+        accounts.add(account2);
+        // when
+        accountValidator.validateBalance(accounts);
+        // then
+        assertEquals(1, accounts.size());
+    }
+
+
 
 
 }
