@@ -11,7 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AccountValidator accountValidator = new AccountValidator();
+        final AccountValidator accountValidator = new AccountValidator();
+        final XMLBuilder xmlBuilder = new XMLBuilder();
 
         // List for for accounts read from xml file
         List<Account> accounts = new ArrayList<>() {};
@@ -28,30 +29,19 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Sorts the list by Account name
-        Collections.sort(accounts);
-
         // Validates accounts
         accountValidator.validateBalance(accounts);
         accountValidator.validateClosingDate(accounts);
         accountValidator.validateCurrency(accounts);
         accountValidator.validateIban(accounts);
 
-        System.out.println("Rachunki które pozostały: ");
+        // Sorts the list by Account name
+        Collections.sort(accounts);
+
+        System.out.println("Validated accounts left: ");
         System.out.println(accounts);
 
-
-        //TODO
-        // Save xml output file
-        try {
-            String filePath = "output.xml";
-            String xml = mapper.writeValueAsString(accounts);
-            FileWriter fileWriter = new FileWriter(filePath);
-            fileWriter.write(xml);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
+        xmlBuilder.saveAccountListToXML(accounts, "output.xml");
     }
 
 }

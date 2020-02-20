@@ -48,4 +48,8 @@ class AccountValidatorTest {
 
     }
 
+    //TODO
+    // checkSumTest()
+
+
 }
